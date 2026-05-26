@@ -13,7 +13,7 @@
 
 ## 🌐 Live Demo
 
-🔗 **[View Live Application →](smartprep-frontend.vercel.app)**
+🔗 **[View Live Application →](https://smartprep-frontend.vercel.app/login)**
 
 ---
 
