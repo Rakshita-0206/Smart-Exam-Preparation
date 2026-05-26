@@ -1,144 +1,179 @@
-# SmartPrep Backend API
+# 🎯 Smart Exam Preparation Platform
 
-AI-powered exam preparation backend — Node.js + Express + Supabase + Gemini AI
+> An AI-powered competitive exam preparation platform that delivers intelligent topic selection, personalized study resources, and a fully responsive user experience — built with modern web technologies and the Gemini API.
+
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite)](https://vitejs.dev/)
+[![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4?style=flat&logo=google)](https://ai.google.dev/)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?style=flat&logo=vercel)](https://vercel.com/)
 
 ---
 
-## Quick Start
+## 🌐 Live Demo
 
-### 1. Clone & Install
+🔗 **[View Live Application →](https://github.com/Rakshita-0206/Smart-Exam-Preparation)**
+
+---
+
+## 📌 Project Overview
+
+Smart Exam Preparation is a full-stack, AI-integrated web application designed to streamline how students prepare for competitive exams. By leveraging Google's Gemini API, the platform provides dynamically generated, contextual study content, making exam prep smarter and more efficient.
+
+This project demonstrates practical application of **AI API integration**, **component-based architecture**, and **responsive UI design** — skills directly applicable to real-world product and software engineering roles.
+
+---
+
+## ✨ Key Features
+
+- **AI-Powered Topic Selection** — Uses the Gemini API to intelligently suggest and prioritize study topics based on user input and exam patterns.
+- **Personalized Study Resources** — Dynamically generates study material, summaries, and practice questions tailored to each user.
+- **Responsive UI** — Fully mobile-friendly interface built with Tailwind CSS for a polished cross-device experience.
+- **Modern Developer Tooling** — Built with Vite for blazing-fast builds and hot module replacement during development.
+- **Type-Safe Codebase** — End-to-end TypeScript implementation for maintainability and reduced runtime errors.
+- **Production Deployment** — Deployed on Vercel with CI/CD integration via GitHub.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend Framework | React 18 |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Build Tool | Vite |
+| AI Integration | Google Gemini API |
+| Deployment | Vercel + GitHub Pages |
+| Config/Env | `.env` based environment variable management |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js v18+
+- npm or yarn
+- A valid [Gemini API key](https://ai.google.dev/)
+
+### Installation
 
 ```bash
-git clone <your-repo-url>
-cd smartprep-backend
+# Clone the repository
+git clone https://github.com/Rakshita-0206/Smart-Exam-Preparation.git
+cd Smart-Exam-Preparation
+
+# Install dependencies
 npm install
-```
 
-### 2. Set Up Environment Variables
-
-```bash
+# Set up environment variables
 cp .env.example .env
-# Fill in your values in .env
+# Add your Gemini API key to .env
+
+# Start the development server
+npm run dev
 ```
 
-### 3. Set Up Supabase
+The app will be available at `http://localhost:5173`.
 
-1. Go to [supabase.com](https://supabase.com) → Create a free project called `smartprep`
-2. Go to **SQL Editor → New Query**
-3. Paste the contents of `db/schema.sql` and click **Run**
-4. Go to **Project Settings → API** and copy:
-   - `Project URL` → `SUPABASE_URL` in `.env`
-   - `anon public` key → `SUPABASE_ANON_KEY` in `.env`
-
-### 4. Get Gemini API Key (Free)
-
-1. Go to [aistudio.google.com](https://aistudio.google.com)
-2. Sign in with Google → click **Get API Key**
-3. Copy it → `GEMINI_API_KEY` in `.env`
-
-### 5. Run Locally
+### Build for Production
 
 ```bash
-npm run dev
-# Server starts at http://localhost:4000
+npm run build
 ```
 
 ---
 
-## API Endpoints
+## 📁 Project Structure
 
-### Auth
-
-| Method | Endpoint | Body | Response |
-|--------|----------|------|----------|
-| POST | `/auth/signup` | `{ name, email, password, examType, targetDate? }` | `{ token, user }` |
-| POST | `/auth/login` | `{ email, password }` | `{ token, user }` |
-| POST | `/auth/logout` | — | `{ message }` |
-
-### AI (🔒 requires Bearer token)
-
-| Method | Endpoint | Body | Response |
-|--------|----------|------|----------|
-| POST | `/ai/recommend` | `{ examType, subjects[] }` | `{ topics: [{name, priority, timeEst, tip}] }` |
-| POST | `/ai/notes` | `{ topic }` | `{ notes: "markdown string", topic }` |
-| POST | `/ai/quiz` | `{ topic, numQuestions? }` | `{ quiz: [{question, options, answer, explanation}] }` |
-
-### Resources (🔒 requires Bearer token)
-
-| Method | Endpoint | Response |
-|--------|----------|----------|
-| GET | `/resources/:topic` | `{ resources: [{id, title, url, source, topic}] }` |
-| GET | `/resources?page=1&limit=20` | `{ resources, total, page, totalPages }` |
-| POST | `/resources` | `{ resource }` |
-
-### User (🔒 requires Bearer token)
-
-| Method | Endpoint | Response |
-|--------|----------|----------|
-| GET | `/user/profile` | `{ profile: { id, email, name, exam_type, target_date } }` |
-| PATCH | `/user/profile` | `{ profile }` |
-| GET | `/user/progress` | `{ progress, topics, totalTopics }` |
-| GET | `/user/topics` | `{ topics[] }` |
-
-### Auth Header Format
 ```
-Authorization: Bearer <token>
+Smart-Exam-Preparation/
+├── index.html              # App entry point
+├── index.js                # Root JS entry
+├── src/                    # Source files
+│   ├── components/         # Reusable React components
+│   ├── pages/              # Route-level page components
+│   ├── services/           # Gemini API integration layer
+│   └── types/              # TypeScript type definitions
+├── public/                 # Static assets
+├── .env.example            # Environment variable template
+├── tailwind.config.js      # Tailwind CSS configuration
+├── vite.config.js          # Vite build configuration
+├── postcss.config.js       # PostCSS configuration
+└── vercel.json             # Vercel deployment config
 ```
 
 ---
 
-## Deploy to Railway
+## 🤖 AI Integration Details
 
-1. Push code to GitHub (`.env` must be in `.gitignore`)
-2. Go to [railway.app](https://railway.app) → Sign up with GitHub
-3. **New Project → Deploy from GitHub repo** → select this repo
-4. In the **Variables** tab, add all variables from `.env.example`
-5. Railway auto-deploys — you'll get a URL like `https://smartprep-api.up.railway.app`
-6. Share this URL with your frontend partner
-7. Update `FRONTEND_URL` in Railway Variables to your partner's Vercel URL
+This project integrates with the **Google Gemini API** to power core features:
 
----
+- **Dynamic Content Generation** — Exam-specific study notes and topic explanations are generated on-demand using Gemini's language capabilities.
+- **Intelligent Recommendations** — The app sends structured prompts to the Gemini API to recommend what to study next based on exam type and progress.
+- **Abstracted API Layer** — All API calls are encapsulated in a dedicated `services/` module, keeping components clean and the integration easily swappable.
 
-## Testing with Postman
-
-1. **Signup**: `POST localhost:4000/auth/signup` → copy the `token`
-2. **Login**: `POST localhost:4000/auth/login` → copy the `token`
-3. **Recommend**: `POST localhost:4000/ai/recommend` with header `Authorization: Bearer <token>`
-   - Body: `{ "examType": "UPSC", "subjects": ["History", "Geography"] }`
-4. **Notes**: `POST localhost:4000/ai/notes`
-   - Body: `{ "topic": "French Revolution" }`
-5. **Resources**: `GET localhost:4000/resources/History`
-6. **Progress**: `GET localhost:4000/user/progress`
+> API keys are managed securely via environment variables and are never exposed to the client bundle.
 
 ---
 
-## Project Structure
+## 🧠 What I Learned / Technical Highlights
 
-```
-smartprep-backend/
-├── index.js              # Main server entry point
-├── package.json
-├── .env.example          # Template — copy to .env
-├── .gitignore
-├── db/
-│   ├── supabase.js       # Supabase client
-│   └── schema.sql        # Run this in Supabase SQL Editor
-├── middleware/
-│   └── auth.js           # JWT verification middleware
-└── routes/
-    ├── auth.js           # /auth/signup, /auth/login
-    ├── ai.js             # /ai/recommend, /ai/notes, /ai/quiz
-    ├── resources.js      # /resources/:topic
-    └── user.js           # /user/profile, /user/progress
+- Designed and implemented a **production-ready AI integration** using REST API calls to the Gemini endpoint with proper error handling and loading states.
+- Built a **fully typed React application** using TypeScript interfaces and generics, ensuring type safety across components and API responses.
+- Applied **Tailwind CSS utility-first patterns** to build a responsive, accessible UI without writing custom CSS.
+- Configured **Vite** for optimized production builds and fast local development cycles.
+- Managed deployment pipelines using **Vercel**, including environment variable configuration for production secrets.
+
+---
+
+## 🔧 Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```env
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
+> Never commit your `.env` file. It is listed in `.gitignore`.
+
 ---
 
-## Tech Stack
+## 📦 Scripts
 
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **Database**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth (JWT)
-- **AI**: Google Gemini 1.5 Flash (free tier: 60 req/min)
-- **Deployment**: Railway (free tier)
+| Command | Description |
+|---|---|
+| `npm run dev` | Start local development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview the production build locally |
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 👩‍💻 Author
+
+**Rakshita**
+- GitHub: [@Rakshita-0206](https://github.com/Rakshita-0206)
+
+---
+
+> ⭐ If you find this project useful or interesting, consider giving it a star on GitHub!
