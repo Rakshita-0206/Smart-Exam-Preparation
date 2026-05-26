@@ -13,7 +13,7 @@
 
 ## 🌐 Live Demo
 
-🔗 **[View Live Application →](https://github.com/Rakshita-0206/Smart-Exam-Preparation)**
+🔗 **[View Live Application →](smartprep-frontend.vercel.app)**
 
 ---
 
