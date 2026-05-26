@@ -1,96 +1,97 @@
-# 📚 SmartPrep — AI-Powered Exam Preparation Platform
+# SmartPrep — Frontend
 
-A modern, responsive educational platform that helps students prepare for competitive exams using AI-powered topic selection and personalized study resources.
+AI-powered exam preparation platform. Built with **React + Tailwind CSS + Vite**, deployable on **Vercel** in minutes.
 
----
+## 🚀 Quick Start
 
-## 🌐 Live Demo
-🔗 [View Live](https://rakshita-0206.github.io/CoCo_Summer_Project/)
-
----
-
-## ✨ Features
-
-- 🤖 **AI-Powered Topic Selection** — Gemini API intelligently ranks and recommends topics based on exam relevance
-- 📖 **Personalized Study Resources** — Curated content tailored to each student's needs
-- 🎯 **Competitive Exam Focus** — Designed specifically for students preparing for entrance exams
-- 📱 **Fully Responsive UI** — Smooth experience across all devices
-- ⚡ **Fast Performance** — Built with Vite for lightning-fast load times
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | React 18, TypeScript |
-| Styling | Tailwind CSS |
-| Icons | Lucide React |
-| Routing | React Router DOM v7 |
-| Build Tool | Vite |
-| AI | Gemini API |
-| Deployment | GitHub Pages |
-
----
-
-## 🗂️ Project Structure
-
-```
-CoCo_Summer_Project/
-│
-└── frontend_coco/
-    ├── public/           # Static assets
-    ├── src/              # React components and pages
-    ├── index.html        # Entry HTML
-    ├── package.json      # Dependencies
-    ├── tailwind.config.js
-    ├── vite.config.ts
-    └── tsconfig.json
-```
-
----
-
-## 🚀 How to Run Locally
-
-**1. Clone the repository**
 ```bash
-git clone https://github.com/Rakshita-0206/CoCo_Summer_Project.git
-cd CoCo_Summer_Project/frontend_coco
-```
-
-**2. Install dependencies**
-```bash
+# 1. Install dependencies
 npm install
-```
 
-**3. Start development server**
-```bash
+# 2. Copy environment file and configure
+cp .env.example .env
+# Edit .env — set VITE_API_URL to your backend URL
+# Set VITE_USE_MOCK=true to run without a real backend
+
+# 3. Start dev server
 npm run dev
+# Open http://localhost:5173
 ```
 
-**4. Open in browser**
+## 📁 Project Structure
+
 ```
-http://localhost:5173
+src/
+├── api/
+│   ├── api.js          # All backend API calls (axios)
+│   └── mockData.js     # Mock responses for demo/dev
+├── components/
+│   ├── Navbar.jsx
+│   ├── ProtectedRoute.jsx
+│   ├── TopicCard.jsx
+│   ├── ProgressBar.jsx
+│   ├── ResourceCard.jsx
+│   ├── Spinner.jsx
+│   └── ErrorMessage.jsx
+├── context/
+│   └── AuthContext.jsx  # Global auth state
+├── pages/
+│   ├── LoginPage.jsx
+│   ├── SignupPage.jsx
+│   ├── Onboarding.jsx
+│   ├── Dashboard.jsx
+│   ├── Notes.jsx
+│   ├── Resources.jsx
+│   └── NotFound.jsx
+├── App.jsx              # Router setup
+├── main.jsx
+└── index.css            # Tailwind + custom styles
 ```
 
----
+## ⚙️ Environment Variables
 
-## 🔮 Future Improvements
+| Variable | Description | Example |
+|---|---|---|
+| `VITE_API_URL` | Backend API base URL | `https://smartprep-api.railway.app` |
+| `VITE_USE_MOCK` | Use mock data (no backend needed) | `true` / `false` |
 
-- [ ] Add user authentication and progress tracking
-- [ ] Integrate more AI features for adaptive learning
-- [ ] Add mock test functionality with timer
-- [ ] Performance analytics dashboard for students
+## 🔌 API Contract
 
----
+The backend must implement these endpoints:
 
-## 🙋‍♀️ Author
+| Endpoint | Method | Request Body | Response |
+|---|---|---|---|
+| `/auth/signup` | POST | `{ name, email, password, examType }` | `{ token, user }` |
+| `/auth/login` | POST | `{ email, password }` | `{ token, user }` |
+| `/ai/recommend` | POST | `{ examType, subjects[] }` | `{ topics: [{name, priority, timeEst, subject}] }` |
+| `/ai/notes` | POST | `{ topic }` | `{ notes: "markdown string" }` |
+| `/resources/:topic` | GET | — | `{ resources: [{title, url, source}] }` |
+| `/user/progress` | GET | — (auth header) | `{ progress: { subjectName: percent } }` |
 
-**Rakshita K Biradar**
-B.Tech Computer Science, Sitare University, Lucknow
-📧 su-24110@sitare.org | [GitHub](https://github.com/Rakshita-0206) | [LinkedIn](www.linkedin.com/in/rakshita-k-biradar-a218ab324)
+All protected routes require `Authorization: Bearer <token>` header.
 
----
+## 🌐 Deploy to Vercel
 
-## 📄 License
-This project is open source and available under the [MIT License](LICENSE).
+1. Push this repo to GitHub
+2. Go to [vercel.com](https://vercel.com) → Import project
+3. Set environment variables in Vercel dashboard:
+   - `VITE_API_URL` = your Railway/Render backend URL
+   - `VITE_USE_MOCK` = `false`
+4. Click Deploy ✅
+
+**Important:** Tell your backend partner to add your Vercel URL to their CORS allowed origins.
+
+## 🛠️ Build for Production
+
+```bash
+npm run build
+# Output in /dist — ready to serve
+```
+
+## 📦 Dependencies
+
+- `react` + `react-dom` — UI framework
+- `react-router-dom` — Client-side routing
+- `axios` — HTTP client with interceptors
+- `tailwindcss` — Utility-first CSS
+- `vite` — Fast build tool
